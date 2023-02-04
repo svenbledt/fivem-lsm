@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="" />
+
+    <title>Live: BloodoutRP / LSM</title>
+
+    <meta
+      name="description"
+      content="fivem Loading Screen Maker / Live Loading Screen of BloodoutRP - Powered by fivem-lsm.com / Want a free fivem Loading Screen? No need to pay, no need for a web server. Start building your own highly customizable, responsive and modern looking loading screen with our easy-to-use admin interface."
+    />
+    <meta
+      name="keywords"
+      content="fivem loading screen, free loading screen, gaming, internet, cs go, inventory, steam, valve, games, esports, fivem, fivem free loading screen, fivem, Free, Loading screen"
+    />
+
+    <meta name="theme-color" content="#660000" />
+
+    <link
+      href="/assets/vendor/bootstrap/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link href="/assets/css/loadingscreen-base.css" rel="stylesheet" />
+
+    <link href="/assets/css/normalize.css" rel="stylesheet" />
+
+    <link href="/assets/css/load.css" rel="stylesheet" />
+
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.4.2/css/all.css"
+      integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns"
+      crossorigin="anonymous"
+    />
+
+    <script async custom-element="amp-ad" src="/assets/js/amp-ad-0.1.js"></script>
+
+    <style>
+      .text-left-layout-progress {
+        padding-top: 0.9rem !important;
+      }
+
+      .text-right-layout-progress {
+        padding-top: 0.4rem !important;
+      }
+
+      #bg,
+      #bg img,
+      #bg2 {
+        transition: 2s filter linear;
+        -webkit-transition: 2s -webkit-filter linear;
+        -moz-transition: 2s -moz-filter linear;
+        -ms-transition: 2s -ms-filter linear;
+        -o-transition: 2s -o-filter linear;
+      }
+
+      html {
+        overflow: hidden;
+      }
+
+      html,
+      body,
+      .body-2 {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      body {
+        background: #000;
+      }
+
+      .body-2 {
+        box-sizing: content-box;
+        padding-right: 17px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        z-index: 16;
+      }
+
+      .spinner {
+        top: 50%;
+        width: 170px;
+        height: 170px;
+
+        position: relative;
+        margin: -85px auto 0 auto;
+      }
+
+      .double-bounce1,
+      .double-bounce2 {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background-color: #660000;
+        opacity: 0.6;
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        -webkit-animation: sk-bounce 2s infinite ease-in-out;
+        animation: sk-bounce 2s infinite ease-in-out;
+      }
+
+      .double-bounce2 {
+        -webkit-animation-delay: -1s;
+        animation-delay: -1s;
+      }
+
+      @-webkit-keyframes sk-bounce {
+        0%,
+        100% {
+          -webkit-transform: scale(0);
+        }
+        50% {
+          -webkit-transform: scale(1);
+        }
+      }
+
+      @keyframes sk-bounce {
+        0%,
+        100% {
+          transform: scale(0);
+          -webkit-transform: scale(0);
+        }
+        50% {
+          transform: scale(1);
+          -webkit-transform: scale(1);
+        }
+      }
+    </style>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .loading-screen,
+      .now-playing-text {
+        font-family: "Roboto", sans-serif;
+        font-weight: 800;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div
+      style="
+        position: absolute;
+        height: 30px;
+        width: 30px;
+        border-radius: 30px;
+        background: rgba(255, 255, 255, 0.8);
+        z-index: 9999;
+        pointer-events: none;
+        left: -30px;
+      "
+      id="cursor"
+    ></div>
+
+    <div
+      style="
+        background: rgba(255, 255, 255, 0.75);
+        backdrop-filter: blur(16px) saturate(180%);
+        -webkit-backdrop-filter: blur(16px) saturate(180%);
+        border-radius: 12px;
+        border: 1px solid rgba(209, 213, 219, 0.3);
+        border-radius: 0;
+      "
+      id="loader-wrapper"
+    >
+      <div class="spinner">
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
+      </div>
+    </div>
+
+    <script>
+      var player;
+      var playerset = false;
+    </script>
+
+    <script>
+      function onYouTubeIframeAPIReady() {}
+
+      function onPlayerReady(event) {
+        event.target.setVolume(volume);
+        event.target.setShuffle({ shufflePlaylist: true });
+        event.target.playVideo();
+      }
+
+      function onPlayerReady1(event) {
+        event.target.setVolume(volume1);
+        event.target.playVideo();
+      }
+
+      var done = false;
+      function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING && !done) {
+        }
+      }
+    </script>
+
+    <div class="body-2">
+      <div
+        class="now-playing"
+        style="background: transparent; padding: 0 !important"
+      >
+        <div style="background-color: #313131; padding: 5px 15px 5px 10px">
+          <div onclick="toggleAudio()" class="now-playing-icon">
+            <i
+              id="now-playing-icon-mute"
+              style="padding: 0 2px 0 2px; display: none; color: #ffffff"
+              class="fas fa-play fa-2x"
+            ></i
+            ><i
+              id="now-playing-icon-play"
+              style="color: #ffffff"
+              class="fas fa-pause fa-2x"
+            ></i>
+          </div>
+          <div class="now-playing-text">
+            <label
+              for="music-text"
+              class="ml-2 mb-0 pb-0 lead"
+              style="font-family: inherit; color: #c7c7c7"
+              >Gerade läuft:</label
+            >
+            <h5 id="music-text" class="ml-2 mb-0 py-0" style="color: #FFFFFF">
+              ArrDee - Oliver-Twist
+            </h5>
+          </div>
+        </div>
+      </div>
+
+      <link href="/assets/css/default.css?v=1.5" rel="stylesheet" />
+      <div class="loading-screen">
+        <div class="title-info">
+          <h4 class="my-0 py-0" style="color: #313131">Willkommen auf</h4>
+          <h1 class="my-0 py-0" style="color: #313131">BloodoutRP</h1>
+        </div>
+        <div class="rules-info" style="background-color: #ffffff">
+          <div class="rules-info-header" style="background-color: #313131">
+            <h5 class="my-0 py-0" style="color: #ffffff">Regeln</h5>
+          </div>
+          <div class="rules-item" style="background-color: #313131">
+            <div class="rules-item-number">
+              <h4 class="py-0 my-0" style="color: #ffffff">1.</h4>
+            </div>
+            <div class="rules-item-text">
+              <p class="lead" style="color: #ffffff">No Prop-killing</p>
+            </div>
+          </div>
+          <div class="rules-item rules-dark" style="background-color: #313131">
+            <div class="rules-item-number">
+              <h4 class="py-0 my-0" style="color: #ffffff">2.</h4>
+            </div>
+            <div class="rules-item-text">
+              <p class="lead" style="color: #ffffff">No Spamming</p>
+            </div>
+          </div>
+          <div class="rules-item" style="background-color: #313131">
+            <div class="rules-item-number">
+              <h4 class="py-0 my-0" style="color: #ffffff">3.</h4>
+            </div>
+            <div class="rules-item-text">
+              <p class="lead" style="color: #ffffff">No Cheats/Exploits</p>
+            </div>
+          </div>
+          <div class="rules-item rules-dark" style="background-color: #313131">
+            <div class="rules-item-number">
+              <h4 class="py-0 my-0" style="color: #ffffff">4.</h4>
+            </div>
+            <div class="rules-item-text">
+              <p class="lead" style="color: #ffffff">No Prop-abusing</p>
+            </div>
+          </div>
+          <div class="rules-item" style="background-color: #313131">
+            <div class="rules-item-number">
+              <h4 class="py-0 my-0" style="color: #ffffff">5.</h4>
+            </div>
+            <div class="rules-item-text">
+              <p class="lead" style="color: #ffffff">Do not crash the server</p>
+            </div>
+          </div>
+          <div class="rules-item rules-dark" style="background-color: #313131">
+            <div class="rules-item-number">
+              <h4 class="py-0 my-0" style="color: #ffffff">6.</h4>
+            </div>
+            <div class="rules-item-text">
+              <p class="lead" style="color: #ffffff">Enjoy your stay!</p>
+            </div>
+          </div>
+        </div>
+        <div class="description-info" style="background-color: #313131">
+          <p class="lead mb-0 pb-0" style="color: #fff9f9">
+            Willkommen auf unserem Server! <br />
+            Geniesse deine Zeit und hab Spaß! <br />
+            Halte dich jederzeit an die Regeln und höre immer auf die
+            Mitarbeiter.
+          </p>
+        </div>
+        <div class="staff-info" style="background-color: #313131">
+          <div class="staff-info-header" style="background-color: #313131">
+            <h5 class="my-0 py-0" style="color: #ffffff">Team</h5>
+          </div>
+          <div class="staff-item" style="background-color: #313131">
+            <div class="staff-item-img" style="border-color: #660000">
+              <img
+                src="https://avatars.akamai.steamstatic.com/50767cea96889a121066ed45c098873cb258f8f3_full.jpg"
+              />
+            </div>
+            <div class="staff-item-text">
+              <h4 class="my-0 py-0" style="color: #FFFFFF">Trojan</h4>
+              <p class="lead" style="color: #868e96">Owner</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style="
+          background-size: 100%;
+          background-size: cover;
+          margin: 0;
+          padding: 0;
+          left: -5%;
+          width: 110%;
+          height: 110%;
+          top: -5%;
+        "
+        id="bg"
+      ></div>
+
+      <div
+        style="
+          background-size: 100%;
+          background-size: cover;
+          margin: 0;
+          padding: 0;
+          left: -5%;
+          width: 110%;
+          height: 110%;
+          top: -5%;
+        "
+        id="bg2"
+      ></div>
+
+      <div style="position: relative; top: 110%; z-index: 100">German</div>
+
+      <script src="/assets/vendor/jquery/jquery.min.js"></script>
+
+      <script type="text/javascript">
+        $(document).ready(function () {
+          $("#loader-wrapper").fadeOut("slow");
+        });
+      </script>
+
+      <script type="text/javascript">
+        var currenttoggle = 0;
+        function toggleAudio() {
+          if (currenttoggle == 0) {
+            $("#now-playing-icon-play").fadeOut("fast", function () {
+              $("#now-playing-icon-mute").fadeIn("fast");
+            });
+            if (playerset == true) {
+              player.pauseVideo();
+            }
+            $("body audio").each(function () {
+              /*** Do it here globally ***/
+              $(this).prop("muted", true);
+            });
+            currenttoggle = 1;
+          } else {
+            $("#now-playing-icon-mute").fadeOut("fast", function () {
+              $("#now-playing-icon-play").fadeIn("fast");
+            });
+            if (playerset == true) {
+              player.playVideo();
+            }
+            $("body audio").each(function () {
+              /*** Do it here globally ***/
+              $(this).prop("muted", false);
+            });
+            currenttoggle = 0;
+          }
+        }
+
+        $(document).ready(function () {
+          setTimeout(function () {
+            var blurinit = false;
+            if (blurinit == false) {
+              $("#bg, #bg2").css("filter", "blur(8px)");
+              $("#bg, #bg2").css("-webkit-filter", "blur(8px)");
+              blurinit = true;
+            }
+          }, 2500);
+        });
+      </script>
+
+      <script type="text/javascript">
+        var bguse = [
+          "\/assets\/images\/background1.jpeg",
+          "\/assets\/images\/background2.jpeg",
+          "\/assets\/images\/background3.jpeg",
+          "\/assets\/images\/background4.jpeg",
+        ];
+      </script>
+    </div>
+    <script src="/assets/js/background-cycle.js?v=1"></script>
+
+    <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script type="text/javascript">
+      $(function () {
+        var volume = 50;
+        $("audio").each(function () {
+          this.volume = volume / 100;
+        });
+      });
+    </script>
+    <audio controls autoplay loop hidden>
+      <source src="/assets/music/track.ogg" type="audio/ogg" />
+    </audio>
+    <script>
+      $(document).ready(function () {
+        var cursor = $("#cursor");
+
+        $(window).mousemove(function (e) {
+          cursor.css({
+            top: e.clientY - cursor.height() / 2,
+            left: e.clientX - cursor.width() / 2,
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
